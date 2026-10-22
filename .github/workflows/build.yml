@@ -6,12 +6,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: unzip -q LiquidTV.zip
-      - name: Fix UnstableApi
-        run: |
-          F=LiquidTV/app/src/main/java/ru/garant/liquidtv/MainActivity.kt
-          sed -i 's/^import androidx.media3.common.Player$/import androidx.media3.common.Player\nimport androidx.media3.common.util.UnstableApi/' $F
-          sed -i 's/@OptIn(ExperimentalFoundationApi::class)/@OptIn(ExperimentalFoundationApi::class, UnstableApi::class, androidx.compose.ui.ExperimentalComposeUiApi::class)/' $F
-
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
       - uses: gradle/actions/setup-gradle@v4
